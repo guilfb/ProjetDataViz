@@ -1,25 +1,122 @@
 <!DOCTYPE html>
 <head>
+
   <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+
   <style>
-    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+    h1 {
+      margin: 0px 0px 15px 20px;
+      font-family: 'Arial';
+    }
+
+    .bar {
+      fill: steelblue;
+    }
+
+    .bar:hover {
+      fill: blue;
+    }
+
+    .label {
+      fill: black;
+      font: 10px sans-serif;
+    }
+
+    .y path, .y stroke, .y line {
+      display: none;
+    }
+
+    .x path, .x stroke {
+      display: none;
+    }
+
   </style>
+
 </head>
-
+<h1>Frequency of Letters Used in the English Language</h1>
 <body>
-  <script>
-    // Feel free to change or delete any of the code you see in this editor!
-    var svg = d3.select("body").append("svg")
-      .attr("width", 960)
-      .attr("height", 500)
 
-    svg.append("text")
-      .text("Edit the code below to change me!")
-      .attr("y", 200)
-      .attr("x", 120)
-      .attr("font-size", 36)
-      .attr("font-family", "monospace")
+<script>
 
-  </script>
-</body>
+  var margin = {
+    top: 20,
+    right: 20,
+    bottom: 30,
+    left: 40
+  };
+  var width = 960 - margin.left - margin.right;
+  var height = 500 - margin.top - margin.bottom;
+
+  var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var x = d3.scaleLinear()
+    .range([0, width]);
+
+  var y = d3.scaleBand()
+    .range([height, 0]);
+
+  var xAxis = d3.axisTop(x)
+    .ticks(10, "%");
+
+  var yAxis = d3.axisLeft(y);
+
+  // d3.csv("dataParisHotspots.csv").then(function(data) {
+  //   console.log(data);
+  //
+  //   var maxFrequency = d3.max(data, function(d) { return d.frequency; });
+  //
+  //   x.domain([0, maxFrequency]);
+  //
+  //   y.domain(data.map(function(d) { return d.letter; }))
+  //     .paddingInner(0.1);
+  //
+  //
+  //   svg.append("g")
+  //     .attr("class", "x axis")
+  //     .attr("transform", "translate(0," + -2 + ")")
+  //     .call(xAxis);
+  //
+  //   svg.append("g")
+  //     .attr("class", "y axis")
+  //     .call(yAxis);
+  //
+  //   svg.selectAll(".bar")
+  //     .data(data)
+  //     .enter().append("rect")
+  //     .attr("class", "bar")
+  //     .attr("x", 0)
+  //     .attr("height", y.bandwidth())
+  //     .attr("y", function(d) { return y(d.letter); })
+  //     .attr("width", function(d) { return x(d.frequency); });
+  //
+  // });
+
+  d3.csv("dataParisHotspotslight.csv")
+    .then(function(error, rows) {
+      // console.log(error)
+
+      error.forEach(function(obj, i) {
+        console.log(obj.date)
+        // var datetime = formatDate.parse(obj.date);
+        // var date = formatDate(datetime).split(' ')[0];
+        // tally[date] = (tally[date]||0) + 1;
+      });
+
+      // for (var date in tally) {
+      //   if (tally.hasOwnProperty(date)) {
+      //     data.push({
+      //       date: date,
+      //       frequency: tally[date]
+      //     });
+      //   }
+      // }
+
+      // console.log(data);
+    });
+
+</script>
