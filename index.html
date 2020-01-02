@@ -1,122 +1,137 @@
 <!DOCTYPE html>
-<head>
+<meta charset="utf-8">
 
-  <meta charset="utf-8">
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+<style type="text/css">
+  /* 13. Basic Styling with CSS */
 
-  <style>
-    h1 {
-      margin: 0px 0px 15px 20px;
-      font-family: 'Arial';
-    }
+  /* Style the lines by removing the fill and applying a stroke */
+  .line {
+    fill: none;
+    stroke: #ffab00;
+    stroke-width: 3;
+  }
 
-    .bar {
-      fill: steelblue;
-    }
+  .overlay {
+    fill: none;
+    pointer-events: all;
+  }
 
-    .bar:hover {
-      fill: blue;
-    }
+  /* Style the dots by assigning a fill and stroke */
+  .dot {
+    fill: #ffab00;
+    stroke: #fff;
+  }
 
-    .label {
-      fill: black;
-      font: 10px sans-serif;
-    }
+  .focus circle {
+    fill: none;
+    stroke: steelblue;
+  }
 
-    .y path, .y stroke, .y line {
-      display: none;
-    }
-
-    .x path, .x stroke {
-      display: none;
-    }
-
-  </style>
-
-</head>
-<h1>Frequency of Letters Used in the English Language</h1>
+</style>
+<!-- Body tag is where we will append our SVG and SVG objects-->
 <body>
+<h1>débit en fonction du temps</h1>
 
+</body>
+
+<!-- Load in the d3 library -->
+<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
 
-  var margin = {
-    top: 20,
-    right: 20,
-    bottom: 30,
-    left: 40
-  };
-  var width = 960 - margin.left - margin.right;
-  var height = 500 - margin.top - margin.bottom;
+  // 2. Use the margin convention practice
+  var margin = {top: 50, right: 50, bottom: 50, left: 50}
+    , width = window.innerWidth - margin.left - margin.right // Use the window's width
+    , height = window.innerHeight - margin.top - margin.bottom; // Use the window's height
 
-  var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+  // The number of hours/days
+  var n = 24;
 
-  var x = d3.scaleLinear()
-    .range([0, width]);
+  // 5. X scale will use the index of our data
+  var xScale = d3.scaleLinear()
+    .domain([0, n]) // input
+    .range([0, width]); // output
 
-  var y = d3.scaleBand()
-    .range([height, 0]);
+  // 6. Y scale will use the randomly generate number
+  var yScale = d3.scaleLinear()
+    .domain([0, 3000]) // input
+    .range([height, 0]); // output
 
-  var xAxis = d3.axisTop(x)
-    .ticks(10, "%");
+  // 7. d3's line generator
+  var line = d3.line()
+    .x(function(d, i) { return xScale(i); }) // set the x values for the line generator
+    .y(function(d) { return yScale(d.download/1000000000); }) // set the y values for the line generator
+    .curve(d3.curveMonotoneX) // apply smoothing to the line
 
-  var yAxis = d3.axisLeft(y);
 
-  // d3.csv("dataParisHotspots.csv").then(function(data) {
-  //   console.log(data);
-  //
-  //   var maxFrequency = d3.max(data, function(d) { return d.frequency; });
-  //
-  //   x.domain([0, maxFrequency]);
-  //
-  //   y.domain(data.map(function(d) { return d.letter; }))
-  //     .paddingInner(0.1);
-  //
-  //
-  //   svg.append("g")
-  //     .attr("class", "x axis")
-  //     .attr("transform", "translate(0," + -2 + ")")
-  //     .call(xAxis);
-  //
-  //   svg.append("g")
-  //     .attr("class", "y axis")
-  //     .call(yAxis);
-  //
-  //   svg.selectAll(".bar")
-  //     .data(data)
-  //     .enter().append("rect")
-  //     .attr("class", "bar")
-  //     .attr("x", 0)
-  //     .attr("height", y.bandwidth())
-  //     .attr("y", function(d) { return y(d.letter); })
-  //     .attr("width", function(d) { return x(d.frequency); });
-  //
-  // });
+  var tabHours = [24]
 
-  d3.csv("dataParisHotspotslight.csv")
-    .then(function(error, rows) {
-      // console.log(error)
+  for (i=0;i<24;i++){
+    tabHours[i]={
+      hours: i,
+      download: 0,
+      upload: 0
+    }
+  }
 
-      error.forEach(function(obj, i) {
-        console.log(obj.date)
-        // var datetime = formatDate.parse(obj.date);
-        // var date = formatDate(datetime).split(' ')[0];
-        // tally[date] = (tally[date]||0) + 1;
+  d3.csv("dataParisHotspots.csv")
+    .then(function(data) {
+      const datetime = d3.timeParse("%Y-%m-%dT%H:%M:%S%Z");
+      console.log(data[0].GeoPoint)
+
+      data.forEach(function(obj) {
+        const DateDebut = datetime(obj.DateDebut);
+        const DateDebutHours = DateDebut.getHours();
+        tabHours[DateDebutHours].download += parseInt(obj.Download,10);
+        tabHours[DateDebutHours].upload += parseInt(obj.Upload,10);
       });
+    })
+    .then(function() {
+      console.log(tabHours)
+      var maxFrequencyUpload = d3.max(tabHours, function(d) { return d.upload});
+      var maxFrequencyDownload = d3.max(tabHours, function(d) { return d.download});
 
-      // for (var date in tally) {
-      //   if (tally.hasOwnProperty(date)) {
-      //     data.push({
-      //       date: date,
-      //       frequency: tally[date]
-      //     });
-      //   }
-      // }
+      if(maxFrequencyUpload >= maxFrequencyDownload) {
+        yScale.domain([0, maxFrequencyUpload/1000000000]);
+      } else {
+        yScale.domain([0, maxFrequencyDownload/1000000000]);
+      }
+      // 1. Add the SVG to the page and employ #2
+      var svg = d3.select("body").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      // console.log(data);
+      // 3. Call the x axis in a group tag
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
+
+      // 4. Call the y axis in a group tag
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
+
+      // 9. Append the path, bind the data, and call the line generator
+      svg.append("path")
+        .datum(tabHours) // 10. Binds data to the line
+        .attr("class", "line") // Assign a class for styling
+        .attr("d", line); // 11. Calls the line generator
+
+      // 12. Appends a circle for each datapoint
+      svg.selectAll(".dot")
+        .data(tabHours)
+        .enter().append("circle") // Uses the enter().append() method
+        .attr("class", "dot") // Assign a class for styling
+        .attr("cx", function(d, i) { return xScale(i) })
+        .attr("cy", function(d) { return yScale(d.download/1000000000) })
+        .attr("r", 5)
+        .on("mouseover", function(a, b, c) {
+          console.log(a)
+          this.attr('class', 'focus')
+        })
+        .on("mouseout", function() {  })
+
     });
-
 </script>
