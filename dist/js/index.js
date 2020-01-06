@@ -76,21 +76,21 @@ var gBarChart = svg.append("g")
 
 gBarChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(250,290)")
   .text("Nombre de connexions");
 
 gBarChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(-55,130)rotate(-90)")
   .text("Heures (format 24h)");
 
 gBarChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","20px")
   .attr("transform", "translate(205,-50)")
   .text("Nombre de connexions par heure");
@@ -133,21 +133,21 @@ var gLineChart = svgLineChart.append("g")
 
 gLineChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(250,290)")
   .text("Heures (format 24h)");
 
 gLineChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(-55,130)rotate(-90)")
   .text("Données (en GigaOctets)");
 
 gLineChart.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","20px")
   .attr("transform", "translate(205,-50)")
   .text("Données (en GigaOctets) par heure (format 24h)");
@@ -175,21 +175,21 @@ var gArrondissement = svgBarChartArrondissement.append("g")
 
 gArrondissement.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(250,295)")
   .text("Arrondissements Parisiens");
 
 gArrondissement.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","13px")
   .attr("transform", "translate(-35,130)rotate(-90)")
   .text("Données (en GigaOctets)");
 
 gArrondissement.append("text")
   .attr("text-anchor", "middle")
-  .attr("font-family", "verdana")
+  .attr("font-family", "MontSerrat")
   .attr("font-size","20px")
   .attr("transform", "translate(205,-50)")
   .text("Données (en GigaOctets) par arrondissement");
@@ -324,7 +324,6 @@ function barChart() {
           .style("fill","blue")
       }
 
-      printListHours();
       indexHostpots();
       majBarChartArr()
     })
@@ -432,6 +431,15 @@ function lineChart() {
           .transition()
           .duration(500)
           .style("fill","#808080")
+
+        svgPie.selectAll('.piePart')
+          .filter((item) => {
+            let hourClicked = parseInt(item.data.key);
+            return hourClicked == d.hours
+          })
+          .transition()
+          .duration(500)
+          .style("fill","#808080")
       } else {
         selectedHours.push(parseInt(d.hours,10));
 
@@ -455,9 +463,17 @@ function lineChart() {
           .transition()
           .duration(500)
           .style("fill","#000000")
+
+        svgPie.selectAll('.piePart')
+          .filter((item) => {
+            let hourClicked = parseInt(item.data.key);
+            return hourClicked == d.hours
+          })
+          .transition()
+          .duration(500)
+          .style("fill","blue")
       }
 
-      printListHours();
       indexHostpots();
       majBarChartArr()
     })
@@ -497,6 +513,15 @@ function lineChart() {
           .transition()
           .duration(500)
           .style("fill","#808080")
+
+        svgPie.selectAll('.piePart')
+          .filter((item) => {
+            let hourClicked = parseInt(item.data.key);
+            return hourClicked == d.hours
+          })
+          .transition()
+          .duration(500)
+          .style("fill","#808080")
       } else {
         selectedHours.push(parseInt(d.hours,10));
 
@@ -520,8 +545,16 @@ function lineChart() {
           .transition()
           .duration(500)
           .style("fill","#ffab00")
+
+        svgPie.selectAll('.piePart')
+          .filter((item) => {
+            let hourClicked = parseInt(item.data.key);
+            return hourClicked == d.hours
+          })
+          .transition()
+          .duration(500)
+          .style("fill","blue")
       }
-      printListHours();
       indexHostpots();
       majBarChartArr()
     })
@@ -556,7 +589,6 @@ function barChartArrondissement() {
     .style("fill","#ffab00")
     .attr("x", function(d) { return xArrondissement(d.codePostal); })
     .attr("y", function(d) { return yArrondissement(d.download/1000000000); })
-    .attr("isClicked","false")
     .on("click", function(d) {
       let arrondissementClicked = d.codePostal;
 
@@ -570,7 +602,6 @@ function barChartArrondissement() {
         selectedArrondissements.push(arrondissementClicked);
 
         d3.select(this)
-          .attr("isClicked","true")
           .transition()
           .duration(500)
           .style("fill",'#ffab00');
@@ -585,7 +616,6 @@ function barChartArrondissement() {
             }
             return thisArrondissement == arrondissementClicked;
           })
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill","#000000");
@@ -601,7 +631,6 @@ function barChartArrondissement() {
       } else {
         selectedArrondissements.splice(selectedArrondissements.indexOf(arrondissementClicked),1);
         d3.select(this)
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill",'#808080');
@@ -617,7 +646,6 @@ function barChartArrondissement() {
 
             return thisArrondissement == arrondissementClicked;
           })
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill","#808080");
@@ -632,7 +660,6 @@ function barChartArrondissement() {
           .style("fill", "#B0E0E6");
       }
 
-      printList();
       indexHostpots();
       majBarLineChart()
     })
@@ -655,7 +682,6 @@ function barChartArrondissement() {
     .style("fill","#000000")
     .attr("x", function(d) { return xArrondissement(d.codePostal); })
     .attr("y", function(d) { return yArrondissement(d.download/1000000000); })
-    .attr("isClicked","false")
     .on("click", function(d) {
       let arrondissementClicked = d.codePostal;
 
@@ -668,7 +694,6 @@ function barChartArrondissement() {
       if(!selectedArrondissements.includes(arrondissementClicked)) {
         selectedArrondissements.push(arrondissementClicked);
         d3.select(this)
-          .attr("isClicked","true")
           .transition()
           .duration(500)
           .style("fill",'#000000');
@@ -684,7 +709,6 @@ function barChartArrondissement() {
 
             return thisArrondissement == arrondissementClicked;
           })
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill","#ffab00");
@@ -701,7 +725,6 @@ function barChartArrondissement() {
         selectedArrondissements.splice(selectedArrondissements.indexOf(arrondissementClicked),1);
 
         d3.select(this)
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill",'#808080');
@@ -717,7 +740,6 @@ function barChartArrondissement() {
 
             return thisArrondissement == arrondissementClicked;
           })
-          .attr("isClicked","false")
           .transition()
           .duration(500)
           .style("fill","#808080");
@@ -732,7 +754,6 @@ function barChartArrondissement() {
           .style("fill", "#B0E0E6");
       }
 
-      printList();
       indexHostpots();
       majBarLineChart()
     })
@@ -833,6 +854,8 @@ function heatArray() {
   });
   var maxTotal = d3.max(heatarray, function(d) { return parseInt(d,10) });
   heat.data(heatarray).max(maxTotal/10).radius(15,15).draw()
+  d3.select("#MinConnection").text("0.1")
+  d3.select("#MaxConnection").text("0.2")
 }
 
 function geoJson(json) {
@@ -841,7 +864,6 @@ function geoJson(json) {
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("isClicked", "true")
     .style("fill",'#1E90FF')
     .style("stroke","#D9EDF7")
     .style("opacity","0.2")
@@ -851,7 +873,6 @@ function geoJson(json) {
       if(!selectedArrondissements.includes(arrondissementClicked)) {
         selectedArrondissements.push(arrondissementClicked);
         d3.select(this)
-          .attr("isClicked","true")
           .style("fill",'#1E90FF');
 
         gArrondissement.selectAll(".bar")
@@ -880,7 +901,6 @@ function geoJson(json) {
       } else {
         selectedArrondissements.splice(selectedArrondissements.indexOf(arrondissementClicked),1);
         d3.select(this)
-          .attr("isClicked","false")
           .style("fill",'#B0E0E6');
 
         gArrondissement.selectAll(".bar")
@@ -907,7 +927,6 @@ function geoJson(json) {
           .style("fill", "#808080");
       }
 
-      printList();
       majBarLineChart();
       indexHostpots()
     })
@@ -931,7 +950,7 @@ function initPieChart() {
 
   svgPie.append("text")
     .attr("text-anchor", "middle")
-    .attr("font-family", "verdana")
+    .attr("font-family", "MontSerrat")
     .attr("font-size","20px")
     .attr("transform", "translate(0,175)")
     .text("Heures sélectionnées");
@@ -941,7 +960,10 @@ function initPieChart() {
     .enter()
     .append('path')
     .attr("class","piePart")
-    .attr('d', [0,0])
+    .attr('d', d3.arc()
+      .innerRadius(1)
+      .outerRadius(0)
+    )
     .attr('fill', 'blue')
     .attr("stroke", "black")
     .style("stroke-width", "2px")
@@ -995,7 +1017,6 @@ function initPieChart() {
           .style("fill","#000000")
       }
 
-      printListHours();
       indexHostpots();
       majBarChartArr()
     })
@@ -1033,10 +1054,6 @@ function runAll() {
     .then(() => {
       barChartArrondissement();
       barChart()
-    })
-    .then(() => {
-      printList();
-      printListHours()
     })
     .then(() => {
       initPieChart()
@@ -1187,47 +1204,6 @@ function resort(element){
   }
 }
 
-// FONCTION PERMETTANT L'AFFICHAGE DE LA LISTE DES ARRONDISSEMENTS AFFICHEES
-function printList() {
-  d3.select(".listPrintedArrondissements")
-    .text(function() {
-      var textToPrint = "";
-      selectedArrondissements.forEach((item, index) => {
-        if(index == 5 || index == 10 || index == 15) {
-          textToPrint += "\n"
-        }
-
-        textToPrint += item;
-
-        if(index != selectedArrondissements.length-1) {
-          textToPrint += ","
-        } else {
-          textToPrint += "."
-        }
-      });
-      return textToPrint
-    })
-}
-
-function printListHours() {
-  d3.select(".listPrintedHours")
-    .text(function() {
-      var textToPrint = "";
-      selectedHours.forEach((item, index) => {
-        if(index == 10) {
-          textToPrint += "\n"
-        }
-        textToPrint += item;
-        if(index != selectedHours.length-1) {
-          textToPrint += ","
-        } else {
-          textToPrint += "."
-        }
-      });
-      return textToPrint
-    })
-}
-
 // FONCTION POUR GERER LES BOUTONS ALL ET NONE
 function index(value) {
   if(value.value == "None") {
@@ -1272,7 +1248,6 @@ function index(value) {
 
   indexHostpots();
   majBarLineChart();
-  printList()
 }
 
 function indexHours(value) {
@@ -1323,6 +1298,5 @@ function indexHours(value) {
   }
 
   indexHostpots();
-  printListHours();
   majBarChartArr();
 }

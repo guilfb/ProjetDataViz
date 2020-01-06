@@ -1396,10 +1396,6 @@ label {
 	background-image: url("../images/header-illustration-light.svg")
 }
 
-.lights-off .site-header::before {
-	background-image: url("../images/header-illustration-dark.svg")
-}
-
 .site-header-inner {
 	position: relative;
 	display: flex;
@@ -1702,10 +1698,6 @@ label {
 	height: 263px;
 	width: 1920px;
 	background-image: url("../images/cta-illustration-light.svg")
-}
-
-.lights-off .cta::before {
-	background-image: url("../images/cta-illustration-dark.svg")
 }
 
 .cta-cta {
@@ -2163,10 +2155,10 @@ hr::after,
 	stroke: steelblue;
 }
 .axis--x{
-	font-family:"verdana"
+	font-family:"Montserrat"
 }
 .axis--y{
-	font-family:"verdana"
+	font-family:"Montserrat"
 }
 .axis--x path {
 	display: none;

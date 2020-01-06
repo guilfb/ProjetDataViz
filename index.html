@@ -131,7 +131,7 @@
       </div>
       <!--VIZU 1st line-->
       <div id="pieChart" style="height:520px; width:560px; text-align:left;float:left;padding:80px;"></div>
-      <div class="map" style="height: 520px; width: 880px;text-align:left;float:left;margin-left: 00px"></div>
+      <div class="map" style="height: 520px; width: 880px;text-align:left;float:left;"></div>
       <div style="height: 360px; width:400px; float: left;">
         <p>Souhaitez vous trier les barCharts ?</p>
 
@@ -144,23 +144,41 @@
         <br/>
 
         <p>Aidez vous pour selectionner les arrondissements...</p>
-        <button class="button" id="all" name="radio" value="All" onclick="index(this)">All Arr</button>
-        <button class="button" id="none" name="radio" value="None" onclick="index(this)">No Arr</button>
+        <button class="button" id="all" name="radio" value="All" onclick="index(this)">Tous</button>
+        <button class="button" id="none" name="radio" value="None" onclick="index(this)">Aucun</button>
 
         <br/>
         <br/>
 
         <p>Aidez vous pour selectionner les heures...</p>
-        <button class="button" id="all2" name="radio2" value="All2" onclick="indexHours(this)">All Hours</button>
-        <button class="button" id="none2" name="radio2" value="None2" onclick="indexHours(this)">No Hour</button>
-        <!--
-                      <div style="height: 50px; width: 500px;">
-                        <p class="listPrintedArrondissements"></p>
-                      </div>
-                      <div style="height: 50px; width: 300px;">
-                        <p class="listPrintedHours"></p>
-                      </div>
-                  -->
+        <button class="button" id="all2" name="radio2" value="All2" onclick="indexHours(this)">Toutes</button>
+        <button class="button" id="none2" name="radio2" value="None2" onclick="indexHours(this)">Aucune</button>
+
+        <br/>
+        <br/>
+
+        <!--Legende-->
+        <div style="height: 30px; width: 300px;">
+          <div style="height: 20px; width: 122px; float: left;">
+            <div style="height: 20px; width: 20px; background-color: black; float:left;"></div>
+            <div style="height: 20px; width: 100px; float: left; line-height:20px"><p style="margin-left: 5px;">Upload</p></div>
+          </div>
+          <div style="height: 20px; width: 140px; float: left;">
+            <div style="height: 20px; width: 20px; background-color: #ffab00; float:left;"></div>
+            <div style="height: 20px; width: 100px; float: left; line-height:20px"><p style="margin-left: 5px;">Download</p></div>
+          </div>
+        </div>
+        <div style="height: 30px; width: 400px;">
+          <div style="height: 20px; width: 122px; float: left;">
+            <div style="height: 20px; width: 20px; background-color: blue; opacity: 0.7; float:left;"></div>
+            <div style="height: 20px; width: 100px; float: left; line-height:20px"><p style="margin-left: 5px;">Heures</p></div>
+          </div>
+          <div style="height: 20px; width: 180px; float: left;">
+            <div style="height: 20px; width: 20px; background-color: #808080; float:left;"></div>
+            <div style="height: 20px; width: 150px; float: left; line-height:20px"><p style="margin-left: 5px;">Non selec.</p></div>
+          </div>
+        </div>
+
       </div>
       <!--VIZU 2nd line-->
       <div class="smallCharts" style="text-align:center;width: 1920px;"></div>
@@ -181,7 +199,7 @@
 </div>
 
 <script src="dist/js/main.min.js"></script>
-<script src="dist/js/index.min.js"></script>
+<script src="dist/js/index.js"></script>
 </body>
 <script>
   document.querySelectorAll('a[href^="#viz"]').forEach(anchor => {
