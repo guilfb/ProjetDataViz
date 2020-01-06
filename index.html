@@ -1,137 +1,217 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dataviz Paris Wifi</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|IBM+Plex+Sans:600" rel="stylesheet">
+  <link rel="stylesheet" href="dist/css/style.css">
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="dist/js/simpleheat/simpleheat.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
 
-<style type="text/css">
-  /* 13. Basic Styling with CSS */
+</head>
+<body class="is-boxed has-animations">
+<div class="body-wrap boxed-container">
+  <header class="site-header">
+    <div class="container">
+      <div class="site-header-inner">
+        <div class="brand header-brand">
+          <h1 class="m-0">
+            <a href="https://github.com/sofianebelaribi/ProjetDataViz">
+              <img class="header-logo-image asset-light" src="dist/images/github_logo.svg" alt="Logo">
+            </a>
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  /* Style the lines by removing the fill and applying a stroke */
-  .line {
-    fill: none;
-    stroke: #ffab00;
-    stroke-width: 3;
-  }
+  <main>
+    <!--PRESENTATION-->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <h1 class="hero-title mt-0">Projet visualisation interactive de données</h1>
+            <p class="hero-paragraph">Comment mieux répartir les hotspots wifi de la ville de Paris en fonction de la consommation des données et de la fréquence d'utilisation ?</p>
+            <p class="hero-paragraph">Un projet réalisé par :
+              <br> <b>ARI</b> Moussa
+              <br> <b>BATTON</b> Hugo
+              <br> <b>BELARIBI</b> Sofiane
+              <br> <b>KOUALET</b> Arnaud-Jordan
+              <br> <b>LEFEBVRE</b> Guillaume</p>
+            <div class="hero-cta">
+              <a class="button button-primary" href="#viz">Visualisations
+                <img src="dist/images/arrow-down-sign-to-navigate.svg" style="width:30px;" alt="down arrow">
+              </a>
+            </div>
+          </div>
+          <div class="hero-media">
+            <div class="header-illustration">
+              <img class="header-illustration-image asset-light" src="dist/images/header-illustration-light.svg" alt="Header illustration">
+            </div>
+            <div class="hero-media-illustration">
+              <img class="hero-media-illustration-image asset-light" src="dist/images/hero-media-illustration-light.svg" style="width: 1000px" alt="Hero media illustration">
+            </div>
+            <div class="hero-media-container">
+              <img class="hero-media-image asset-light" src="dist/images/wifi_logo.png" alt="Hero media">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--DETAILS PROJET ET AXES DE RECHERCHES-->
+    <section class="features section">
+      <div class="container">
+        <div class="features-inner section-inner has-bottom-divider">
+          <div class="features-header text-center">
+            <div class="container-sm">
+              <h2 class="section-title mt-0">Paris Wifi</h2>
+              <p class="section-paragraph">Paris Wi-Fi est un service mis en place par la Ville de Paris. Il vous permet de vous connecter gratuitement, sans fil et en haut débit, à Internet. Il est ouvert à tous : Parisiens et visiteurs de Paris.</p>
+              <div class="features-image">
+                <img class="features-illustration asset-light" src="dist/images/features-illustration-light.svg" alt="Feature illustration">
+                <img class="features-box asset-light" src="dist/images/Ville_de_Paris_logo_2019.svg" alt="logo Paris Wifi">
+                <img class="features-illustration asset-light" src="dist/images/features-illustration-top-light.svg" style="top: -5%;" alt="Feature illustration top">
+              </div>
+            </div>
+          </div>
+          <div class="features-wrap" style="margin-top: 130px">
+            <!--DEBIT DE CONSOMMATION-->
+            <div class="feature is-revealing">
+              <div class="feature-inner">
+                <div class="feature-icon">
+                  <img class="asset-light" src="dist/images/upload-and-download-from-the-cloud-svgrepo-com.svg" style="height: 50px;" alt="Feature 01">
+                </div>
+                <div class="feature-content">
+                  <h3 class="feature-title mt-0">Débit de consommation</h3>
+                  <p class="text-sm mb-0">Nous avons axé notre premier axe de recherche sur </p>
+                </div>
+              </div>
+            </div>
+            <!--NOMBRE D'UTILISATEURS-->
+            <div class="feature is-revealing">
+              <div class="feature-inner">
+                <div class="feature-icon">
+                  <img class="asset-light" src="dist/images/user-svgrepo-com.svg" style="height: 50px;" alt="Feature 02">
+                </div>
+                <div class="feature-content">
+                  <h3 class="feature-title mt-0">Nombre d'utilisateurs</h3>
+                  <p class="text-sm mb-0">Nous avons pris soin de relever le nombre d'utilisateurs de chaque hotspot. Cela représente un paramètre très important concernant la répartition des bornes wifi.</p>
+                </div>
+              </div>
+            </div>
+            <!--HABITUDES DE CONSOMMATION-->
+            <div class="feature is-revealing">
+              <div class="feature-inner">
+                <div class="feature-icon">
+                  <img class="asset-light" src="dist/images/repeat-svgrepo-com.svg" style="height: 50px;" alt="Feature 03">
+                </div>
+                <div class="feature-content">
+                  <h3 class="feature-title mt-0">Habitudes de consommation</h3>
+                  <p class="text-sm mb-0">Nous avons par la suite essayé de définir des habitudes de consommation afin de mieux cerner les endroits dans Paris qui doivent être renforcés.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--VISUALISATIONS-->
+    <section class="section">
+      <div class="container-sm">
+        <div class="cta-inner section-inner">
+          <div class="cta-header text-center">
+            <h2 class="section-title" id="viz" style="margin-bottom: -16px;">Observation des hotspots wifi à Paris
+              <button class="button" onclick="fullscreen()" style="position: absolute;margin-left: 200px;">Plein écran</button>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <!--VIZU 1st line-->
+      <div id="pieChart" style="height:520px; width:560px; text-align:left;float:left;padding:80px;"></div>
+      <div class="map" style="height: 520px; width: 880px;text-align:left;float:left;margin-left: 00px"></div>
+      <div style="height: 360px; width:400px; float: left;">
+        <p>Souhaitez vous trier les barCharts ?</p>
 
-  .overlay {
-    fill: none;
-    pointer-events: all;
-  }
+        <select id="d3-dropdown" onchange="resort(this)">
+          <option value="1">Chronologique ASC</option>
+          <option value="2">Frequence DESC</option>
+        </select>
 
-  /* Style the dots by assigning a fill and stroke */
-  .dot {
-    fill: #ffab00;
-    stroke: #fff;
-  }
+        <br/>
+        <br/>
 
-  .focus circle {
-    fill: none;
-    stroke: steelblue;
-  }
+        <p>Aidez vous pour selectionner les arrondissements...</p>
+        <button class="button" id="all" name="radio" value="All" onclick="index(this)">All Arr</button>
+        <button class="button" id="none" name="radio" value="None" onclick="index(this)">No Arr</button>
 
-</style>
-<!-- Body tag is where we will append our SVG and SVG objects-->
-<body>
-<h1>débit en fonction du temps</h1>
+        <br/>
+        <br/>
 
+        <p>Aidez vous pour selectionner les heures...</p>
+        <button class="button" id="all2" name="radio2" value="All2" onclick="indexHours(this)">All Hours</button>
+        <button class="button" id="none2" name="radio2" value="None2" onclick="indexHours(this)">No Hour</button>
+        <!--
+                      <div style="height: 50px; width: 500px;">
+                        <p class="listPrintedArrondissements"></p>
+                      </div>
+                      <div style="height: 50px; width: 300px;">
+                        <p class="listPrintedHours"></p>
+                      </div>
+                  -->
+      </div>
+      <!--VIZU 2nd line-->
+      <div class="smallCharts" style="text-align:center;width: 1920px;"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer has-top-divider">
+    <div class="container">
+      <div class="site-footer-inner">
+        <div class="brand footer-brand">
+          <a href="https://github.com/sofianebelaribi/ProjetDataViz">
+            <img class="asset-light" src="dist/images/github_logo.svg" alt="Logo">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="dist/js/main.min.js"></script>
+<script src="dist/js/index.min.js"></script>
 </body>
-
-<!-- Load in the d3 library -->
-<script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
+  document.querySelectorAll('a[href^="#viz"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
 
-  // 2. Use the margin convention practice
-  var margin = {top: 50, right: 50, bottom: 50, left: 50}
-    , width = window.innerWidth - margin.left - margin.right // Use the window's width
-    , height = window.innerHeight - margin.top - margin.bottom; // Use the window's height
-
-  // The number of hours/days
-  var n = 24;
-
-  // 5. X scale will use the index of our data
-  var xScale = d3.scaleLinear()
-    .domain([0, n]) // input
-    .range([0, width]); // output
-
-  // 6. Y scale will use the randomly generate number
-  var yScale = d3.scaleLinear()
-    .domain([0, 3000]) // input
-    .range([height, 0]); // output
-
-  // 7. d3's line generator
-  var line = d3.line()
-    .x(function(d, i) { return xScale(i); }) // set the x values for the line generator
-    .y(function(d) { return yScale(d.download/1000000000); }) // set the y values for the line generator
-    .curve(d3.curveMonotoneX) // apply smoothing to the line
-
-
-  var tabHours = [24]
-
-  for (i=0;i<24;i++){
-    tabHours[i]={
-      hours: i,
-      download: 0,
-      upload: 0
+  function fullscreen() {
+    if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+      (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+      if (document.documentElement.requestFullScreen) {
+        document.documentElement.requestFullScreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullScreen) {
+        document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+    } else {
+      if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      }
     }
   }
-
-  d3.csv("dataParisHotspots.csv")
-    .then(function(data) {
-      const datetime = d3.timeParse("%Y-%m-%dT%H:%M:%S%Z");
-      console.log(data[0].GeoPoint)
-
-      data.forEach(function(obj) {
-        const DateDebut = datetime(obj.DateDebut);
-        const DateDebutHours = DateDebut.getHours();
-        tabHours[DateDebutHours].download += parseInt(obj.Download,10);
-        tabHours[DateDebutHours].upload += parseInt(obj.Upload,10);
-      });
-    })
-    .then(function() {
-      console.log(tabHours)
-      var maxFrequencyUpload = d3.max(tabHours, function(d) { return d.upload});
-      var maxFrequencyDownload = d3.max(tabHours, function(d) { return d.download});
-
-      if(maxFrequencyUpload >= maxFrequencyDownload) {
-        yScale.domain([0, maxFrequencyUpload/1000000000]);
-      } else {
-        yScale.domain([0, maxFrequencyDownload/1000000000]);
-      }
-      // 1. Add the SVG to the page and employ #2
-      var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      // 3. Call the x axis in a group tag
-      svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(xScale)); // Create an axis component with d3.axisBottom
-
-      // 4. Call the y axis in a group tag
-      svg.append("g")
-        .attr("class", "y axis")
-        .call(d3.axisLeft(yScale)); // Create an axis component with d3.axisLeft
-
-      // 9. Append the path, bind the data, and call the line generator
-      svg.append("path")
-        .datum(tabHours) // 10. Binds data to the line
-        .attr("class", "line") // Assign a class for styling
-        .attr("d", line); // 11. Calls the line generator
-
-      // 12. Appends a circle for each datapoint
-      svg.selectAll(".dot")
-        .data(tabHours)
-        .enter().append("circle") // Uses the enter().append() method
-        .attr("class", "dot") // Assign a class for styling
-        .attr("cx", function(d, i) { return xScale(i) })
-        .attr("cy", function(d) { return yScale(d.download/1000000000) })
-        .attr("r", 5)
-        .on("mouseover", function(a, b, c) {
-          console.log(a)
-          this.attr('class', 'focus')
-        })
-        .on("mouseout", function() {  })
-
-    });
 </script>
+</html>
