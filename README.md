@@ -1,4 +1,4 @@
-# ProjetDataViz
+# Consumption paris wifi
 
 As part of our last year of master, we worked on a data visualization project. We chose to work on the data consumption of Paris wifi hotspots. Here is the problem we wanted to answer:  
 
