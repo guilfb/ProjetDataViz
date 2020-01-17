@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dataviz Paris Wifi</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|IBM+Plex+Sans:600" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
   <link rel="stylesheet" href="dist/css/style.css">
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="dist/js/simpleheat/simpleheat.min.js"></script>
@@ -188,12 +190,21 @@
 
   <footer class="site-footer has-top-divider">
     <div class="container">
-      <div class="site-footer-inner">
-        <div class="brand footer-brand">
-          <a href="https://github.com/sofianebelaribi/ProjetDataViz">
-            <img class="asset-light" src="dist/images/github_logo.svg" alt="Logo">
+      <div class="site-footer-inner row">
+        <div class="brand footer-brand col-md-6 ">
+          <a href="https://github.com/sofianebelaribi/ProjetDataViz" target="_blank">
+            <img class="asset-light myasset" src="dist/images/github_logo_light.svg"  alt="Logo">
           </a>
         </div>
+        <div class=" mydiv col-md-6 ">
+          <a class="src-link" href="http://master-info.univ-lyon1.fr/DS/" target="_blank"> Lyon 1 Master Data Science</a><br />
+          <a class="src" href="https://lyondataviz.github.io/teaching/lyon1-m2/2019/" target="_blank"> Cours Data Viz 2019/2020 </a> <br />
+          <a class="src-link" href="https://www.data.gouv.fr/fr/datasets/liste-des-sites-des-hotspots-paris-wifi-prs/" target="_blank"> Jeux de données</a><br />
+          <a class="src-link" href="https://www.univ-lyon1.fr/" target="_blank"> Université lyon 1</a> <br />
+        </div>
+      </div>
+      <div class="row">
+        <p class="copyright"> © Moussa Ari, Hugo BATTON, Sofiane BELARIBI, Arnaud-Jordan KOUALET, Guillaume LEFEBVRE</p>
       </div>
     </div>
   </footer>
@@ -201,6 +212,9 @@
 
 <script src="dist/js/main.min.js"></script>
 <script src="dist/js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 <script>
   document.querySelectorAll('a[href^="#viz"]').forEach(anchor => {
